@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnix Spot - Download Games, Software & Courses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --dark-blue: #0a1128;
+            --medium-blue: #1a2a57;
+            --light-blue: #2a3a77;
+            --accent-purple: #6a00ff;
+            --text-color: #ffffff;
+            --card-bg: rgba(10, 17, 40, 0.8);
+            --glow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--accent-purple);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #000 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(10, 17, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neon-blue);
+            box-shadow: var(--glow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--neon-blue);
+            text-shadow: var(--glow);
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--neon-blue);
+            text-shadow: var(--glow);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+        }
+
+        .btn-login:hover {
+            background: var(--neon-blue);
+            color: var(--dark-blue);
+            box-shadow: var(--glow);
+        }
+
+        .btn-register {
+            background: var(--neon-blue);
+            color: var(--dark-blue);
+        }
+
+        .btn-register:hover {
+            box-shadow: var(--glow);
+        }
+
+        .btn-tierlist {
+            background: var(--accent-purple);
+            color: var(--text-color);
+        }
+
+        .btn-tierlist:hover {
+            background: var(--neon-blue);
+            color: var(--dark-blue);
+            box-shadow: var(--glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: radial-gradient(circle at center, var(--medium-blue) 0%, var(--dark-blue) 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,243,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            text-shadow: var(--glow);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--neon-blue);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text-color);
+            font-size: 1rem;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--neon-blue);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            box-shadow: var(--glow);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: var(--medium-blue);
+            border: none;
+            border-radius: 5px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active, .tab:hover {
+            background: var(--neon-blue);
+            color: var(--dark-blue);
+            box-shadow: var(--glow);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: var(--glow);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--neon-blue);
+        }
+
+        .card-description {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: #cccccc;
+            line-height: 1.5;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            color: #aaaaaa;
+        }
+
+        .card-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: var(--neon-blue);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .card-button:hover {
+            box-shadow: var(--glow);
+        }
+
+        /* User Panel */
+        .user-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: var(--dark-blue);
+            border-left: 1px solid var(--neon-blue);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transition: right 0.4s ease;
+            z-index: 1001;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .user-panel.active {
+            right: 0;
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--neon-blue);
+        }
+
+        .close-panel {
+            background: none;
+            border: none;
+            color: var(--neon-blue);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-stats {
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: var(--medium-blue);
+            border-radius: 5px;
+        }
+
+        .stat-value {
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark-blue);
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            max-width: 90%;
+            border: 1px solid var(--neon-blue);
+            box-shadow: var(--glow);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--neon-blue);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--neon-blue);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid var(--neon-blue);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text-color);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-switch {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .modal-switch a {
+            color: var(--neon-blue);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Tierlist Section */
+        .tierlist-section {
+            display: none;
+            padding: 60px 0;
+        }
+
+        .tierlist-section.active {
+            display: block;
+        }
+
+        .tierlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tierlist-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+
+        .tierlist-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .tierlist-item h3 {
+            color: var(--neon-blue);
+            margin-bottom: 10px;
+        }
+
+        .tierlist-item p {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            border-top: 1px solid var(--neon-blue);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-blue);
+        }
+
+        .copyright {
+            color: #aaaaaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .user-panel {
+                width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Carnix Spot</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active" data-section="games">Games</a></li>
+                        <li><a href="#" data-section="software">Software</a></li>
+                        <li><a href="#" data-section="courses">Courses</a></li>
+<li><a href="index.html" data-section="tierlist"></a></li>
+</ul>
+</nav>
+<div class="auth-buttons">
+  <button class="btn btn-tierlist" id="tierlist-btn" onclick="window.location.href='index.html'">
+    Carnix Tierlist
+  </button>
+</div>
+
+                    <button class="btn btn-login" id="login-btn">Login</button>
+                    <button class="btn btn-register" id="register-btn">Register</button>
+                    <button class="btn btn-login" id="user-btn"><i class="fas fa-user"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to Carnix Spot</h1>
+            <p>Your ultimate destination for games, software, and educational courses. Download, learn, and level up!</p>
+            <div class="search-box">
+                <input type="text" placeholder="Search games, software, courses...">
+                <button><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <!-- Games Section -->
+            <div class="content-section active" id="games-section">
+                <h2 class="section-title">Games</h2>
+                <div class="tabs">
+                    <button class="tab active" data-category="all">All Games</button>
+                    <button class="tab" data-category="action">Action</button>
+                    <button class="tab" data-category="rpg">RPG</button>
+                    <button class="tab" data-category="strategy">Strategy</button>
+                </div>
+                <div class="cards-grid" id="games-grid">
+                    <!-- Games will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Software Section -->
+            <div class="content-section" id="software-section">
+                <h2 class="section-title">Software</h2>
+                <div class="tabs">
+                    <button class="tab active" data-category="all">All Software</button>
+                    <button class="tab" data-category="productivity">Productivity</button>
+                    <button class="tab" data-category="design">Design</button>
+                    <button class="tab" data-category="development">Development</button>
+                    <button class="tab" data-category="security">Security</button>
+                </div>
+                <div class="cards-grid" id="software-grid">
+                    <!-- Software will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Courses Section -->
+            <div class="content-section" id="courses-section">
+                <h2 class="section-title">Courses</h2>
+                <div class="tabs">
+                    <button class="tab active" data-category="all">All Courses</button>
+                    <button class="tab" data-category="english">English</button>
+                    <button class="tab" data-category="urdu">Urdu/Hindi</button>
+                </div>
+                <div class="cards-grid" id="courses-grid">
+                    <!-- Courses will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Tierlist Section -->
+            <div class="content-section" id="tierlist-section">
+                <h2 class="section-title">Carnix Tierlist</h2>
+                <div class="tierlist-grid">
+                    <div class="tierlist-item">
+                        <h3>S-Tier</h3>
+                        <p>Cyberpunk 2077</p>
+                        <p>Adobe Photoshop</p>
+                        <p>Web Development Bootcamp</p>
+                    </div>
+                    <div class="tierlist-item">
+                        <h3>A-Tier</h3>
+                        <p>Call of Duty: Modern Warfare</p>
+                        <p>Visual Studio Code</p>
+                        <p>Python for Beginners</p>
+                    </div>
+                    <div class="tierlist-item">
+                        <h3>B-Tier</h3>
+                        <p>Civilization VI</p>
+                        <p>Microsoft Office</p>
+                        <p>Urdu Programming Course</p>
+                    </div>
+                    <div class="tierlist-item">
+                        <h3>C-Tier</h3>
+                        <p>The Witcher 3</p>
+                        <p>Malwarebytes Premium</p>
+                        <p>Hindi Web Design Course</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Panel -->
+    <div class="user-panel" id="user-panel">
+        <div class="user-header">
+            <h3>User Profile</h3>
+            <button class="close-panel" id="close-panel">&times;</button>
+        </div>
+        <div class="user-stats">
+            <h4>Your Stats</h4>
+            <div class="stat-item">
+                <span>Games Level:</span>
+                <span class="stat-value" id="games-level">1</span>
+            </div>
+            <div class="stat-item">
+                <span>Games Credits:</span>
+                <span class="stat-value" id="games-credits">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Software Level:</span>
+                <span class="stat-value" id="software-level">1</span>
+            </div>
+            <div class="stat-item">
+                <span>Software Credits:</span>
+                <span class="stat-value" id="software-credits">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Courses Level:</span>
+                <span class="stat-value" id="courses-level">1</span>
+            </div>
+            <div class="stat-item">
+                <span>Courses Credits:</span>
+                <span class="stat-value" id="courses-credits">0</span>
+            </div>
+        </div>
+        <div class="user-actions">
+            <button class="btn btn-login" style="width: 100%;" id="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Login to Carnix Spot</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="auth-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group" id="confirm-password-group" style="display: none;">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-register" id="auth-submit">Login</button>
+                    <a href="#" style="color: var(--neon-blue);">Forgot Password?</a>
+                </div>
+            </form>
+            <div class="modal-switch">
+                <p id="modal-switch-text">Don't have an account? <a id="modal-switch-link">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Carnix Spot</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Built By carnoba</a>
+               
+                </div>
+                <div class="copyright">
+                    &copy; 2023 Carnix Spot. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data for games, software, and courses
+        const data = {
+            games: [
+                {
+                    id: 1,
+                    name: "Cyberpunk 2077",
+                    description: "An open-world, action-adventure RPG set in the megalopolis of Night City.",
+                    size: "70 GB",
+                    requirements: "Windows 10, Intel Core i5, 8GB RAM, GTX 1060",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "rpg"
+                },
+                {
+                    id: 2,
+                    name: "Call of Duty: Modern Warfare",
+                    description: "Experience visceral, photo-realistic combat in this first-person shooter.",
+                    size: "175 GB",
+                    requirements: "Windows 10, Intel Core i5, 12GB RAM, GTX 1660",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "action"
+                },
+                {
+                    id: 3,
+                    name: "Civilization VI",
+                    description: "Build an empire to stand the test of time in this turn-based strategy game.",
+                    size: "12 GB",
+                    requirements: "Windows 7, Intel Core i3, 4GB RAM, GTX 550",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "strategy"
+                },
+                {
+                    id: 4,
+                    name: "The Witcher 3: Wild Hunt",
+                    description: "A story-driven open world RPG set in a fantasy universe.",
+                    size: "50 GB",
+                    requirements: "Windows 7, Intel Core i5, 6GB RAM, GTX 660",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "rpg"
+                }
+            ],
+            software: [
+                {
+                    id: 1,
+                    name: "Adobe Photoshop 2023",
+                    description: "The world's best imaging and graphic design software with advanced AI features.",
+                    size: "3.2 GB",
+                    requirements: "Windows 10, 8GB RAM, 4GB GPU memory, 10GB free space",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "design"
+                },
+                {
+                    id: 2,
+                    name: "Visual Studio Code",
+                    description: "A lightweight but powerful source code editor with built-in Git commands.",
+                    size: "85 MB",
+                    requirements: "Windows 7, 1GB RAM, 500MB free space",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "development"
+                },
+                {
+                    id: 3,
+                    name: "Microsoft Office 2023",
+                    description: "The latest version of the productivity suite with Word, Excel, PowerPoint.",
+                    size: "4.5 GB",
+                    requirements: "Windows 10, 4GB RAM, 8GB free space",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "productivity"
+                },
+                {
+                    id: 4,
+                    name: "Adobe Premiere Pro",
+                    description: "Professional video editing software for film, TV, and web.",
+                    size: "8.6 GB",
+                    requirements: "Windows 10, 16GB RAM, 4GB GPU, 20GB free space",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "design"
+                },
+                {
+                    id: 5,
+                    name: "Malwarebytes Premium",
+                    description: "Advanced malware protection and removal tool with real-time protection.",
+                    size: "250 MB",
+                    requirements: "Windows 7+, 2GB RAM, 500MB free space",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1563012061-5bd5c06e2333?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "security"
+                },
+                {
+                    id: 6,
+                    name: "AutoCAD 2023",
+                    description: "Professional CAD software for 2D and 3D design and drafting.",
+                    size: "6.2 GB",
+                    requirements: "Windows 10, 8GB RAM, 10GB free space, DirectX 11",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "design"
+                }
+            ],
+            courses: [
+                {
+                    id: 1,
+                    name: "Web Development Bootcamp",
+                    description: "Learn HTML, CSS, JavaScript and build real-world projects.",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "english"
+                },
+                {
+                    id: 2,
+                    name: "Python for Beginners",
+                    description: "Start your programming journey with Python.",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "english"
+                },
+                {
+                    id: 3,
+                    name: "Urdu Programming Course",
+                    description: "Learn programming in Urdu language from basics to advanced.",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "urdu"
+                },
+                {
+                    id: 4,
+                    name: "Hindi Web Design Course",
+                    description: "Create beautiful websites with HTML and CSS in Hindi.",
+                    thumbnailUrl: "https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                    downloadLink: "#",
+                    category: "urdu"
+                }
+            ]
+        };
+
+        // User data (simulated)
+        let currentUser = null;
+        let users = [
+            { username: "admin", password: "password", 
+              gamesCredits: 50, gamesLevel: 2, 
+              softwareCredits: 30, softwareLevel: 1, 
+              coursesCredits: 70, coursesLevel: 3 }
+        ];
+
+        // DOM Elements
+        const navLinks = document.querySelectorAll('nav a');
+        const contentSections = document.querySelectorAll('.content-section');
+        const tabs = document.querySelectorAll('.tab');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const userBtn = document.getElementById('user-btn');
+        const tierlistBtn = document.getElementById('tierlist-btn');
+        const userPanel = document.getElementById('user-panel');
+        const closePanel = document.getElementById('close-panel');
+        const loginModal = document.getElementById('login-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const authForm = document.getElementById('auth-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const modalTitle = document.getElementById('modal-title');
+        const authSubmit = document.getElementById('auth-submit');
+        const modalSwitchLink = document.getElementById('modal-switch-link');
+        const modalSwitchText = document.getElementById('modal-switch-text');
+        const confirmPasswordGroup = document.getElementById('confirm-password-group');
+
+        // Modal state (login or register)
+        let isLoginMode = true;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderItems('games', 'all');
+            setupEventListeners();
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                    
+                    // Update active nav link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Tabs
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    const parentSection = this.closest('.content-section').id;
+                    
+                    // Update active tab
+                    const parentTabs = this.parentElement.querySelectorAll('.tab');
+                    parentTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Render items based on category
+                    if (parentSection === 'games-section') {
+                        renderItems('games', category);
+                    } else if (parentSection === 'software-section') {
+                        renderItems('software', category);
+                    } else if (parentSection === 'courses-section') {
+                        renderItems('courses', category);
+                    }
+                });
+            });
+
+            // User panel
+            userBtn.addEventListener('click', function() {
+                if (currentUser) {
+                    updateUserStats();
+                    userPanel.classList.add('active');
+                } else {
+                    switchToLogin();
+                    loginModal.classList.add('active');
+                }
+            });
+
+            closePanel.addEventListener('click', function() {
+                userPanel.classList.remove('active');
+            });
+
+            // Login modal
+            loginBtn.addEventListener('click', function() {
+                switchToLogin();
+                loginModal.classList.add('active');
+            });
+
+            registerBtn.addEventListener('click', function() {
+                switchToRegister();
+                loginModal.classList.add('active');
+            });
+
+            // Tierlist button
+            tierlistBtn.addEventListener('click', function() {
+                showSection('tierlist');
+                
+                // Update active nav link
+                navLinks.forEach(l => l.classList.remove('active'));
+                document.querySelector('a[data-section="tierlist"]').classList.add('active');
+            });
+
+            closeModal.addEventListener('click', function() {
+                loginModal.classList.remove('active');
+            });
+
+            // Auth form
+            authForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (isLoginMode) {
+                    // Login logic
+                    const user = users.find(u => u.username === username && u.password === password);
+                    
+                    if (user) {
+                        currentUser = user;
+                        loginModal.classList.remove('active');
+                        updateUserStats();
+                        userPanel.classList.add('active');
+                        alert(`Welcome back, ${username}!`);
+                    } else {
+                        alert('Invalid username or password!');
+                    }
+                } else {
+                    // Register logic
+                    const confirmPassword = document.getElementById('confirm-password').value;
+                    
+                    if (password !== confirmPassword) {
+                        alert('Passwords do not match!');
+                        return;
+                    }
+                    
+                    if (users.find(u => u.username === username)) {
+                        alert('Username already exists!');
+                        return;
+                    }
+                    
+                    // Create new user
+                    const newUser = {
+                        username: username,
+                        password: password,
+                        gamesCredits: 0,
+                        gamesLevel: 1,
+                        softwareCredits: 0,
+                        softwareLevel: 1,
+                        coursesCredits: 0,
+                        coursesLevel: 1
+                    };
+                    
+                    users.push(newUser);
+                    currentUser = newUser;
+                    loginModal.classList.remove('active');
+                    updateUserStats();
+                    userPanel.classList.add('active');
+                    alert(`Welcome to Carnix Spot, ${username}!`);
+                }
+            });
+
+            // Modal switch
+            modalSwitchLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (isLoginMode) {
+                    switchToRegister();
+                } else {
+                    switchToLogin();
+                }
+            });
+
+            // Logout
+            logoutBtn.addEventListener('click', function() {
+                currentUser = null;
+                userPanel.classList.remove('active');
+                alert('You have been logged out.');
+            });
+        }
+
+        // Switch to login mode
+        function switchToLogin() {
+            isLoginMode = true;
+            modalTitle.textContent = 'Login to Carnix Spot';
+            authSubmit.textContent = 'Login';
+            modalSwitchText.innerHTML = 'Don\'t have an account? <a id="modal-switch-link">Register here</a>';
+            confirmPasswordGroup.style.display = 'none';
+            
+            // Re-attach event listener to the new link
+            document.getElementById('modal-switch-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                switchToRegister();
+            });
+        }
+
+        // Switch to register mode
+        function switchToRegister() {
+            isLoginMode = false;
+            modalTitle.textContent = 'Register for Carnix Spot';
+            authSubmit.textContent = 'Register';
+            modalSwitchText.innerHTML = 'Already have an account? <a id="modal-switch-link">Login here</a>';
+            confirmPasswordGroup.style.display = 'block';
+            
+            // Re-attach event listener to the new link
+            document.getElementById('modal-switch-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                switchToLogin();
+            });
+        }
+
+        // Show specific section
+        function showSection(section) {
+            contentSections.forEach(sec => sec.classList.remove('active'));
+            document.getElementById(`${section}-section`).classList.add('active');
+            
+            // Render items for the active section
+            if (section === 'games') {
+                renderItems('games', 'all');
+            } else if (section === 'software') {
+                renderItems('software', 'all');
+            } else if (section === 'courses') {
+                renderItems('courses', 'all');
+            }
+        }
+
+        // Render items based on type and category
+        function renderItems(type, category) {
+            const grid = document.getElementById(`${type}-grid`);
+            grid.innerHTML = '';
+            
+            let items = data[type];
+            
+            // Filter by category if not "all"
+            if (category !== 'all') {
+                items = items.filter(item => item.category === category);
+            }
+            
+            // Create cards for each item
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                let cardHTML = `
+                    <img src="${item.thumbnailUrl}" alt="${item.name}" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">${item.name}</h3>
+                        <p class="card-description">${item.description}</p>
+                `;
+                
+                // Add specific details based on type
+                if (type === 'games' || type === 'software') {
+                    cardHTML += `
+                        <div class="card-meta">
+                            <span><strong>Size:</strong> ${item.size}</span>
+                            <span><strong>Requirements:</strong> ${item.requirements}</span>
+                        </div>
+                    `;
+                }
+                
+                cardHTML += `
+                    <a href="${item.downloadLink}" class="card-button" data-type="${type}" data-id="${item.id}">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                    </div>
+                `;
+                
+                card.innerHTML = cardHTML;
+                grid.appendChild(card);
+            });
+            
+            // Add event listeners to download buttons
+            document.querySelectorAll('.card-button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const type = this.getAttribute('data-type');
+                    const id = parseInt(this.getAttribute('data-id'));
+                    
+                    if (currentUser) {
+                        // Award credits and potentially level up
+                        awardCredits(type, 10);
+                        alert(`Download started! You earned 10 ${type} credits.`);
+                    } else {
+                        alert('Please login to download content and earn credits!');
+                        switchToLogin();
+                        loginModal.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Award credits to user
+        function awardCredits(type, amount) {
+            if (!currentUser) return;
+            
+            const creditField = `${type}Credits`;
+            const levelField = `${type}Level`;
+            
+            currentUser[creditField] += amount;
+            
+            // Check for level up (every 100 credits)
+            if (currentUser[creditField] >= currentUser[levelField] * 100) {
+                currentUser[levelField] += 1;
+                alert(`Congratulations! You've reached level ${currentUser[levelField]} in ${type}!`);
+            }
+            
+            updateUserStats();
+        }
+
+        // Update user stats in the panel
+        function updateUserStats() {
+            if (!currentUser) return;
+            
+            document.getElementById('games-credits').textContent = currentUser.gamesCredits;
+            document.getElementById('games-level').textContent = currentUser.gamesLevel;
+            document.getElementById('software-credits').textContent = currentUser.softwareCredits;
+            document.getElementById('software-level').textContent = currentUser.softwareLevel;
+            document.getElementById('courses-credits').textContent = currentUser.coursesCredits;
+            document.getElementById('courses-level').textContent = currentUser.coursesLevel;
+        }
+    </script>
+</body>
+</html>
