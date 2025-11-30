@@ -6,9 +6,14 @@
     <title>Carnix Tierlist</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
 
-        
+<link rel="icon" href="images/carnix_logo.png" type="image/x-icon">
+
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="AYRFUKzCxlk9adi9S-x7g";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+
+    <style>
         :root {
             --primary: #2c3e50;
             --secondary: #3498db;
@@ -22,6 +27,14 @@
             --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
+
+        .mode-icon img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+}
 
         * {
             margin: 0;
@@ -340,6 +353,8 @@
             gap: 1rem;
             transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
         }
 
         .player-card:hover {
@@ -347,16 +362,82 @@
             transform: translateY(-3px);
         }
 
+        /* Special effects for top 3 players */
+        .player-card.gold {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .player-card.gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, gold, transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .player-card.silver {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(192, 192, 192, 0.05));
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
+        }
+
+        .player-card.silver::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, silver, transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .player-card.bronze {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(205, 127, 50, 0.05));
+            border: 1px solid rgba(205, 127, 50, 0.3);
+            box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
+        }
+
+        .player-card.bronze::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #cd7f32, transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
         .player-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
             background: linear-gradient(135deg, var(--secondary), var(--accent));
+            overflow: hidden;
+        }
+
+        .player-avatar img {
+            width: 64px;
+            height: 64px;
+            display: block;
+            object-fit: cover;
+            image-rendering: pixelated;
         }
 
         .player-info {
@@ -368,6 +449,10 @@
             font-weight: 600;
             font-size: 1.1rem;
             margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
         }
 
         .player-details {
@@ -457,8 +542,253 @@
             font-size: 0.9rem;
         }
 
-        /* Login Modal */
-        .modal {
+        /* NEW STYLES FOR ADDED FEATURES */
+        
+        /* Overall Ranking Section */
+        .overall-ranking-section {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ranking-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ranking-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ranking-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+        }
+        
+        .ranking-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        .ranking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Special effects for top 3 ranking items */
+        .ranking-item.gold {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .ranking-item.gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, gold, transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .ranking-item.silver {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(192, 192, 192, 0.05));
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
+        }
+
+        .ranking-item.silver::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, silver, transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .ranking-item.bronze {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(205, 127, 50, 0.05));
+            border: 1px solid rgba(205, 127, 50, 0.3);
+            box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
+        }
+
+        .ranking-item.bronze::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #cd7f32, transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        .ranking-position {
+            font-weight: bold;
+            font-size: 1.2rem;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .ranking-player {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+        
+        .ranking-player img {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            object-fit: cover;
+            image-rendering: pixelated;
+        }
+        
+        .ranking-points {
+            font-weight: bold;
+            color: var(--neon-blue);
+        }
+        
+        /* Badge Styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-grandmaster {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+        }
+        
+        .badge-master {
+            background: linear-gradient(135deg, #c0c0c0, #808080);
+            color: #000;
+        }
+        
+        .badge-ace {
+            background: linear-gradient(135deg, #cd7f32, #8b4513);
+            color: #fff;
+        }
+        
+        .badge-specialist {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: #fff;
+        }
+        
+        .badge-cadet {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: #fff;
+        }
+        
+        .badge-novice {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: #fff;
+        }
+        
+        .badge-rookie {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: #fff;
+        }
+
+        /* Server info moved to header */
+        .server-header-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #bdc3c7;
+            background: rgba(0,0,0,0.25);
+            padding: 6px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,255,255,0.06);
+        }
+
+        .server-header-inline .copy-btn {
+            background: transparent;
+            border: none;
+            color: var(--neon-blue);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .server-header-inline .copy-btn:hover {
+            color: #fff;
+            text-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        /* Info Button */
+        .info-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--neon-blue);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        .info-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--neon-blue);
+        }
+        
+        /* Info Modal */
+        .info-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -470,144 +800,88 @@
             justify-content: center;
             align-items: center;
         }
-
-        .modal.active {
+        
+        .info-modal.active {
             display: flex;
         }
-
-        .modal-content {
+        
+        .info-content {
             background: var(--dark);
             padding: 30px;
-            border-radius: 10px;
-            width: 400px;
+            border-radius: 15px;
+            width: 600px;
             max-width: 90%;
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px #6a00ff;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--neon-blue);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--neon-blue);
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid var(--neon-blue);
-            background: rgba(0, 0, 0, 0.5);
-            color: var(--light);
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-switch {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .modal-switch a {
-            color: var(--neon-blue);
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* User Panel */
-        .user-panel {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 350px;
-            height: 100vh;
-            background: var(--dark);
-            border-left: 1px solid var(--neon-blue);
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-            transition: right 0.4s ease;
-            z-index: 1001;
-            padding: 20px;
+            max-height: 80vh;
             overflow-y: auto;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
         }
-
-        .user-panel.active {
-            right: 0;
-        }
-
-        .user-header {
+        
+        .info-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 1px solid var(--neon-blue);
         }
-
-        .close-panel {
+        
+        .close-info {
             background: none;
             border: none;
             color: var(--neon-blue);
             font-size: 1.5rem;
             cursor: pointer;
         }
-
-        .user-stats {
-            margin-bottom: 30px;
+        
+        .info-section {
+            margin-bottom: 25px;
         }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
+        
+        .info-section h3 {
             margin-bottom: 15px;
+            color: var(--neon-blue);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .points-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        
+        .points-table th, .points-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .points-table th {
+            color: var(--neon-blue);
+        }
+        
+        .achievements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             padding: 10px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
+            border-radius: 8px;
         }
 
-        .stat-value {
-            color: var(--neon-blue);
-            font-weight: bold;
-        }
-
-        .tier-progress {
-            margin-top: 20px;
-        }
-
-        .progress-bar {
-            height: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            margin-top: 5px;
+        /* Player detail modal adjustments */
+        .player-detail-content .player-skin {
+            width: 160px;
+            height: 160px;
+            border-radius: 12px;
             overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            border-radius: 5px;
-            transition: width 0.5s ease;
+            margin-bottom: 10px;
         }
 
         @media (max-width: 768px) {
@@ -628,8 +902,9 @@
                 grid-template-columns: 1fr;
             }
             
-            .user-panel {
-                width: 300px;
+            .server-header-inline {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -647,10 +922,16 @@
                 <a class="neon-link" href="https://discord.gg/y88A6m4x9e" target="_blank" rel="noreferrer">Discord</a>
                 <a class="neon-link" href="https://www.youtube.com/channel/UC556Hc3fD-yxQEA6aTjgsWQ" target="_blank" rel="noreferrer">YouTube</a>
             </div>
-            <div class="auth-buttons">
-                <button class="neon-btn" onclick="window.location.href='carnixspot.html'">Carnix Spot</button>
-             
 
+            <!-- Server IP moved into header -->
+            <div class="server-header-inline">
+                <span id="header-server-ip">carnixpvp.cylone.net:19109</span>
+                <button class="copy-btn" id="copy-ip-btn"><i class="fas fa-copy"></i></button>
+            </div>
+
+            <div class="auth-buttons">
+                
+                <button class="neon-btn" id="rankings-btn">View Rankings</button>
             </div>
         </nav>
     </header>
@@ -660,55 +941,74 @@
             <h1 class="page-title">Carnix Tierlist</h1>
             <p class="subtitle">Compare players across different Carnix game modes</p>
             
-            <div class="modes-grid">
-                <div class="mode-card" data-mode="sword">
-                    <div class="mode-icon">⚔️</div>
-                    <h2 class="mode-name">Sword</h2>
-                    <p class="mode-desc">Classic sword PvP tierlist</p>
-                </div>
-                
-                <div class="mode-card" data-mode="uhc">
-                    <div class="mode-icon">🍎</div>
-                    <h2 class="mode-name">UHC</h2>
-                    <p class="mode-desc">Ultra Hardcore mode rankings</p>
-                </div>
-                
-                <div class="mode-card" data-mode="smp">
-                    <div class="mode-icon">🌍</div>
-                    <h2 class="mode-name">SMP</h2>
-                    <p class="mode-desc">Survival Multiplayer rankings</p>
-                </div>
-                
-                <div class="mode-card" data-mode="crystal">
-                    <div class="mode-icon">💎</div>
-                    <h2 class="mode-name">Crystal</h2>
-                    <p class="mode-desc">Crystal PvP specialists</p>
-                </div>
-                
-                <div class="mode-card" data-mode="axe">
-                    <div class="mode-icon">🪓</div>
-                    <h2 class="mode-name">Axe</h2>
-                    <p class="mode-desc">Axe PvP combat rankings</p>
-                </div>
-                
-                <div class="mode-card" data-mode="diapot">
-                    <div class="mode-icon">⛏️</div>
-                    <h2 class="mode-name">Diapot</h2>
-                    <p class="mode-desc">Diamond potion PvP tierlist</p>
-                </div>
-                
-                <div class="mode-card" data-mode="nethpot">
-                    <div class="mode-icon">🔥</div>
-                    <h2 class="mode-name">Nethpot</h2>
-                    <p class="mode-desc">Nether potion PvP rankings</p>
-                </div>
-                
-                <div class="mode-card" data-mode="mace">
-                    <div class="mode-icon">🔨</div>
-                    <h2 class="mode-name">Mace</h2>
-                    <p class="mode-desc">Mace combat specialists</p>
-                </div>
-            </div>
+      <div class="modes-grid">
+
+    <div class="mode-card" data-mode="sword">
+        <div class="mode-icon">
+            <img src="images/sword.webp" alt="sword icon">
+        </div>
+        <h2 class="mode-name">Sword</h2>
+        <p class="mode-desc">Classic sword PvP tierlist</p>
+    </div>
+
+    <div class="mode-card" data-mode="uhc">
+        <div class="mode-icon">
+            <img src="images/uhc1.webp" alt="uhc icon">
+        </div>
+        <h2 class="mode-name">UHC</h2>
+        <p class="mode-desc">Ultra Hardcore mode rankings</p>
+    </div>
+
+    <div class="mode-card" data-mode="smp">
+        <div class="mode-icon">
+            <img src="images/smp.webp" alt="smp icon">
+        </div>
+        <h2 class="mode-name">SMP</h2>
+        <p class="mode-desc">Survival Multiplayer rankings</p>
+    </div>
+
+    <div class="mode-card" data-mode="crystal">
+        <div class="mode-icon">
+            <img src="images/crystal.webp" alt="crystal icon">
+        </div>
+        <h2 class="mode-name">Crystal</h2>
+        <p class="mode-desc">Crystal PvP specialists</p>
+    </div>
+
+    <div class="mode-card" data-mode="axe">
+        <div class="mode-icon">
+            <img src="images/axe.webp" alt="axe icon">
+        </div>
+        <h2 class="mode-name">Axe</h2>
+        <p class="mode-desc">Axe PvP combat rankings</p>
+    </div>
+
+    <div class="mode-card" data-mode="diapot">
+        <div class="mode-icon">
+            <img src="images/diapot.png" alt="diapot icon">
+        </div>
+        <h2 class="mode-name">Diapot</h2>
+        <p class="mode-desc">Diamond potion PvP tierlist</p>
+    </div>
+
+    <div class="mode-card" data-mode="nethpot">
+        <div class="mode-icon">
+            <img src="images/netherite.webp" alt="nethpot icon">
+        </div>
+        <h2 class="mode-name">Nethpot</h2>
+        <p class="mode-desc">Nether potion PvP rankings</p>
+    </div>
+
+    <div class="mode-card" data-mode="mace">
+        <div class="mode-icon">
+            <img src="images/Mace.webp" alt="mace icon">
+        </div>
+        <h2 class="mode-name">Mace</h2>
+        <p class="mode-desc">Mace combat specialists</p>
+    </div>
+
+</div>
+
             
             <section class="videos-section">
                 <h2 class="videos-title">🎥 carnoba YouTube Videos</h2>
@@ -785,12 +1085,115 @@
                 </div>
             </div>
         </div>
+
+        <!-- NEW: Full Rankings Page -->
+        <div id="ranking-page" class="tierlist-container">
+            <button class="back-btn">← Back</button>
+            <h1 class="page-title">Full Overall Rankings</h1>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search players by name...">
+            </div>
+            
+            <div class="ranking-card">
+                <div class="ranking-header">
+                    <div class="ranking-icon">🏅</div>
+                    <h2 class="ranking-title">All Players</h2>
+                </div>
+                <div class="ranking-list" id="full-ranking-list">
+                    <!-- Full ranking will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: Player Detail Modal -->
+        <div class="info-modal" id="player-modal">
+            <div class="info-content player-detail-content" id="player-detail-content">
+                <div class="info-header">
+                    <h2 id="player-modal-title">Player Details</h2>
+                    <button class="close-info" id="close-player-modal">×</button>
+                </div>
+                <div id="player-modal-body">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </div>
+
     </main>
 
-   
+    <div class="info-button" id="info-button">ℹ️</div>
 
-   
-       
+    <!-- Info Modal (About) -->
+    <div class="info-modal" id="info-modal">
+        <div class="info-content">
+            <div class="info-header">
+                <h2>About Carnix Tierlist</h2>
+                <button class="close-info" id="close-info">×</button>
+            </div>
+            
+            <div class="info-section">
+                <h3>How Overall Ranking Works</h3>
+                <p>Players earn points based on their performance across all game modes. The points are calculated as follows:</p>
+                
+                <table class="points-table">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>HT1</td><td>60 points</td></tr>
+                        <tr><td>LT1</td><td>45 points</td></tr>
+                        <tr><td>HT2</td><td>30 points</td></tr>
+                        <tr><td>LT2</td><td>20 points</td></tr>
+                        <tr><td>HT3</td><td>10 points</td></tr>
+                        <tr><td>LT3</td><td>6 points</td></tr>
+                        <tr><td>HT4</td><td>4 points</td></tr>
+                        <tr><td>LT4</td><td>3 points</td></tr>
+                        <tr><td>HT5</td><td>2 points</td></tr>
+                        <tr><td>LT5</td><td>1 point</td></tr>
+                    </tbody>
+                </table>
+                
+                <p>Total points are calculated by summing points from all game modes where a player appears.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Achievements</h3>
+                <div class="achievements-list">
+                    <div class="achievement-item">
+                        <span class="badge badge-grandmaster">Combat Grandmaster</span>
+                        <span>400+ points</span>
+                    </div>
+                    <div class="achievement-item">
+                        <span class="badge badge-master">Combat Master</span>
+                        <span>250+ points</span>
+                    </div>
+                    <div class="achievement-item">
+                        <span class="badge badge-ace">Combat Ace</span>
+                        <span>100+ points</span>
+                    </div>
+                    <div class="achievement-item">
+                        <span class="badge badge-specialist">Combat Specialist</span>
+                        <span>50+ points</span>
+                    </div>
+                    <div class="achievement-item">
+                        <span class="badge badge-cadet">Combat Cadet</span>
+                        <span>20+ points</span>
+                    </div>
+                    <div class="achievement-item">
+                        <span class="badge badge-novice">Combat Novice</span>
+                        <span>10+ points</span>
+                    </div>
+                    <div class="achievement-item">
+                        <span class="badge badge-rookie">Rookie</span>
+                        <span>Less than 10 points</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -800,16 +1203,12 @@
     </footer>
 
     <script>
-
-
-
         // Sample data for each mode
         const modesData = {
             sword: {
                 name: "Sword",
                 high: [
-                    { name: "AndrewZx13", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "An" },
-                    { name: "ItzFarhanYT", region: "As", tier: "HT5", date: getCurrentDate(), initials: "It" },
+                   
                     { name: "xxmagmax", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Xx" },
                       { name: "Rock_Yuvi", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Ry" },
                        { name: "ACREEPYGOD", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Ac" },
@@ -817,6 +1216,11 @@
                         { name: "Xadc1", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Xa" },
                         { name: "Racingrex7172", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Rg" },
                         { name: "Tomoril", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Rg" },
+                        { name: "Bivek__", region: "AS", tier: "HT3", date: getCurrentDate(), initials: "Bi" },
+                        { name: "MosesCbxz", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Mc" },
+                          { name: "NAVNEETH_YT_37", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Ny" },
+                          { name: "conexionhT3", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Co" },
+                          { name: " markdevr", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Md" },
        
                 ],
                 mid: [
@@ -837,16 +1241,21 @@
                       { name: "ojijan", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Oj" },
                       { name: "RazerMouseViper", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Rm" },
                       { name: "Senpaii _Thunderz", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Sp" },
-                      { name: "NAVNEETH_YT_37", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Ny" },
-                      
-
+                    
+                      { name: "Fixel_YT", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Fy" },
+                      { name: "MeowwByAladin", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Ma" },
+                      { name: "Not_RONIT", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Nr" },
+                       { name: "AndrewZx13", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "An" },
+                       { name: "Mastreosoul", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Ms" },
+                       { name: "ItzFarhanYT", region: "As", tier: "LT4", date: getCurrentDate(), initials: "Itz" },
+                       { name: "weedvi", region: "As", tier: "LT3", date: getCurrentDate(), initials: "Wd" },
                 ]
             },
             uhc: {
                 name: "UHC",
                 high: [
-                    { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" },
-                    { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" }
+                    { name: "WolfStrike_21", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Ws" },
+                    { name: "ItzFarhanYT", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "It" }
                 ],
                 mid: [
                     { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" },
@@ -854,14 +1263,16 @@
                 ],
                 low: [
                     { name: "carnoba", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Ca" },
-                    { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" }
+                    { name: "Bestpvper7_", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Bp" },
+                    { name: "Aayanmaster", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Am" },
+                    { name: "weedvi", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Wd" }
                 ]
             },
             smp: {
                 name: "SMP",
                 high: [
                     { name: "Bishowaily", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Bi" },
-                    { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" }
+                    { name: "NAVNEETH_YT_37", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Ny" }
                 ],
                 mid: [
                     { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" },
@@ -869,7 +1280,8 @@
                 ],
                 low: [
                     { name: "carnoba", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Ca" },
-                    { name: "Rock_Yuvi", region: "As", tier: "LT4", date: getCurrentDate(), initials: "Ry" }
+                    { name: "Rock_Yuvi", region: "As", tier: "LT4", date: getCurrentDate(), initials: "Ry" },
+                    { name: "weedvi", region: "As", tier: "LT3", date: getCurrentDate(), initials: "Wd" }
                 ]
             },
             crystal: {
@@ -878,9 +1290,15 @@
                     { name: "carnoba", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Ca" },
                     { name: "sniperpebkk", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "sn" },
                          { name: "Xx_VIWAAN_xX", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Xx" },
-                              { name: "MineLoop", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Ml" },
-                              { name: "Xroaf", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Xr" },
-                              { name: "linhcutene", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Li" }
+                            { name: "MineLoop", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Ml" },
+                            { name: "Xroaf", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Xr" },
+                            { name: "linhcutene", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Li" },
+                            { name: "Bivek__", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Bi" },
+                            { name: "NotOwner1515", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "No" },
+                            { name: "Savo", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Sa" },
+                            { name: "PROJAIGAMING223", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Pg" },
+                            { name: "132pogiako", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Po" },
+
                 ],
                 mid: [
                     { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" },
@@ -892,10 +1310,13 @@
                      { name: "goatspido", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Go" },
                       { name: "ItzFarhanYT", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "It" },
                       { name: "Spectrume", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Sp" },
-                      { name: "Bivek__", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Bi" },
+                   
                       { name: "omagaf", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Og" },
                        { name: "Not_RONIT", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Nr" },
-                       { name: "notchiz", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "No" }
+                       { name: "notchiz", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "No" },
+                       { name: "MrShomi", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Ms" },
+                       { name: "iamstartingnew", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "It" },
+                       { name: "TroopaZymon", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Tz" },
 
                 ]
             },
@@ -903,24 +1324,28 @@
                 name: "Axe",
                 high: [
                     { name: "carnoba", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Ca" },
+                    { name: "Fixel_YT", region: "AS", tier: "HT3", date: getCurrentDate(), initials: "FY" },
                     { name: "abidou10", region: "EU", tier: "HT4", date: getCurrentDate(), initials: "ab" },
                     { name: "Itzthebigmans2", region: "As", tier: "HT5", date: getCurrentDate(), initials: "It" },
                     { name: "Not_RONIT", region: "As", tier: "HT5", date: getCurrentDate(), initials: "No" },
                     { name: "ZZARINOWILLING12", region: "As", tier: "HT4", date: getCurrentDate(), initials: "Zz" },
-                    { name: "Toriboi12", region: "As", tier: "HT5", date: getCurrentDate(), initials: "Zz" }
+                    { name: "Toriboi12", region: "As", tier: "HT5", date: getCurrentDate(), initials: "Zz" },
+                    { name: "AndrewZx13", region: "As", tier: "HT4", date: getCurrentDate(), initials: "An" },
+                    { name: "ItzFarhanYT", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "It" },
                 ],
                 mid: [
                     { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" },
                     { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" }
                 ],
                 low: [
-                    { name: "Fixel_YT", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Fy" },
                     { name: "Axrylon", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Ax" },
                     { name: "SatyaS3", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Sa" },
                     { name: "ItzFarhanYT", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "It" },
                     { name: "gojo_naruto", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Gn" },
                     { name: "zangi13", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Z" },
-                    { name: "cocomuth", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Cm" }
+                    { name: "cocomuth", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Cm" },
+                     { name: "Bivek__", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Bi" },
+                     { name: "Bestpvper7_", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Bp" },
                     
                 ]
             },
@@ -928,7 +1353,9 @@
                 name: "Diapot",
                 high: [
                     { name: "carnoba", region: "AS", tier: "HT3", date: getCurrentDate(), initials: "Ca" },
-                    { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" }
+                    { name: "Fixel_YT", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Fy" },
+                    { name: "NAVNEETH_YT37", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Ny" },
+                    { name: "weedvi", region: "AS", tier: "HT3", date: getCurrentDate(), initials: "Wd" },
                 ],
                 mid: [
                     { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" },
@@ -942,13 +1369,21 @@
             nethpot: {
                 name: "Nethpot",
                 high: [
-                    { name: "Fixel_YT", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "FY" },
+                    
                     { name: "ItzFarhanYT", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "It" },
                      { name: "Little_Faizan", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Li" },
                      { name: "PrimeBroly", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Pb" },
                        { name: "dchh5773", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Dc" },
                        { name: "Ex1cut4r_", region: "AS", tier: "HT3", date: getCurrentDate(), initials: "Ex" },
-                       { name: "Blackboard", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Bb" }
+                       { name: "Blackboard", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Bb" },
+                       { name: "Not_RONIT", region: "AS", tier: "HT5", date: getCurrentDate(), initials: "Nr" },
+                       { name: "iamstartingnew", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "It" },
+                    { name: "AndrewZx13", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "An" },
+                    { name: "NAVNEETH_YT_37", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Ny" },
+                     { name: "DarkKnight67_", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "Dk" }, 
+                      { name: "weedvi", region: "AS", tier: "HT3", date: getCurrentDate(), initials: "Wd" },    
+
+
                 ],
                 mid: [
                     { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" },
@@ -959,21 +1394,26 @@
                     { name: "cocomuth", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Cm" },
                     { name: " bububoy08", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "bu" },
                      { name: "MoizMoreX", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Mo" },
-                     { name: "Volt_plays", region: "AS", tier: "LT3 (weak)", date: getCurrentDate(), initials: "Vp" },
+                     { name: "Volt_plays", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Vp" },
                       { name: "kstrickly", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Ks" },
                       { name: "COLDWATER9999", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Cw" },
                       { name: "nsa_warrior", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Nw" },
-                      { name: "Not_RONIT", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Nr" },
+                      
                       { name: "MineLoop", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Ml" },
-                       { name: "EZBOY_OP", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Ez" }
+                       { name: "EZBOY_OP", region: "AS", tier: "LT5", date: getCurrentDate(), initials: "Ez" },
+                       { name: "Fixel_YT", region: "AS", tier: "LT3", date: getCurrentDate(), initials: "Fy" },
+                       { name: "PROJAIGAMING223", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Pg" },
+                        { name: "markdevr", region: "AS", tier: "LT4", date: getCurrentDate(), initials: "Md" },
                 ]
+                
             },
             mace: {
                 name: "Mace",
                 high: [
                     { name: "_R4don", region: "AS", tier: "HT4", date: getCurrentDate(), initials: "R4" },
                     { name: "ItzFarhanYT", region: "EU", tier: "HT4", date: getCurrentDate(), initials: "It" },
-                     { name: "Fixel_YT", region: "As", tier: "HT4", date: getCurrentDate(), initials: "Fi" }
+                     { name: "Fixel_YT", region: "As", tier: "HT4", date: getCurrentDate(), initials: "Fi" },
+                     { name: "Bivek__", region: "As", tier: "HT5", date: getCurrentDate(), initials: "Bi" }
                 ],
                 mid: [
                     { name: "", region: "", tier: "", date: getCurrentDate(), initials: "" },
@@ -986,63 +1426,132 @@
             }
         };
 
-        // User data (simulated)
-        let currentUser = null;
-        let users = [
-            { 
-                username: "carnoba", 
-                password: "password", 
-                points: 750,
-                level: 38,
-                currentTier: "MT2",
-                modes: {
-                    sword: "LT2",
-                    uhc: "LT3",
-                    smp: "LT3",
-                    crystal: "HT4",
-                    axe: "HT4",
-                    diapot: "HT3",
-                    nethpot: "LT2",
-                    mace: "LT4"
-                }
-            }
-        ];
+        // NEW: Tier point values
+        const tierPoints = {
+            "HT1": 60,
+            "LT1": 45,
+            "HT2": 30,
+            "LT2": 20,
+            "HT3": 10,
+            "LT3": 6,
+            "HT4": 4,
+            "LT4": 3,
+            "HT5": 2,
+            "LT5": 1
+        };
+
+        // NEW: Achievement requirements
+        const achievementRequirements = {
+            "Combat Grandmaster": 400,
+            "Combat Master": 250,
+            "Combat Ace": 100,
+            "Combat Specialist": 50,
+            "Combat Cadet": 20,
+            "Combat Novice": 10,
+            "Rookie": 0
+        };
+
+        // NEW: Player skin URLs - using Minotar API for full skins
+                const playerSkins = {
+                    "carnoba": "images/Untitled-1.png",
+                    "Fixel_YT": "https://minotar.net/avatar/Fixel_YT/100.png",
+                    "ItzFarhanYT": "https://minotar.net/avatar/ItzFarhanYT/100.png",
+            "AndrewZx13": "https://minotar.net/avatar/AndrewZx13/100.png",
+            "xxmagmax": "https://minotar.net/avatar/xxmagmax/100.png",
+            "Rock_Yuvi": "https://minotar.net/avatar/Rock_Yuvi/100.png",
+            "ACREEPYGOD": "https://minotar.net/avatar/ACREEPYGOD/100.png",
+            "MineLoop": "https://minotar.net/avatar/MineLoop/100.png",
+            "Xadc1": "https://minotar.net/avatar/Xadc1/100.png",
+            "Racingrex7172": "https://minotar.net/avatar/Racingrex7172/100.png",
+            "Tomoril": "https://minotar.net/avatar/Tomoril/100.png",
+            "RAGHAVGAMING202": "https://minotar.net/avatar/RAGHAVGAMING202/100.png",
+            "bububoy08": "https://minotar.net/avatar/bububoy08/100.png",
+            "cocomuth": "https://minotar.net/avatar/cocomuth/100.png",
+            "UrBadBruv": "https://minotar.net/avatar/UrBadBruv/100.png",
+            "Volts_plays": "https://minotar.net/avatar/Volts_plays/100.png",
+            "Miraboreasu": "https://minotar.net/avatar/Miraboreasu/100.png",
+            "czadlr": "https://minotar.net/avatar/czadlr/100.png",
+            "ojijan": "https://minotar.net/avatar/ojijan/100.png",
+            "RazerMouseViper": "https://minotar.net/avatar/RazerMouseViper/100.png",
+            "Senpaii _Thunderz": "https://minotar.net/avatar/Senpaii_Thunderz/100.png",
+            "NAVNEETH_YT_37": "https://minotar.net/avatar/NAVNEETH_YT_37/100.png",
+            "Bishowaily": "https://minotar.net/avatar/Bishowaily/100.png",
+            "sniperpebkk": "https://minotar.net/avatar/sniperpebkk/100.png",
+            "Xx_VIWAAN_xX": "https://minotar.net/avatar/Xx_VIWAAN_xX/100.png",
+            "Xroaf": "https://minotar.net/avatar/Xroaf/100.png",
+            "linhcutene": "https://minotar.net/avatar/linhcutene/100.png",
+            "Itzthebigmans2": "https://minotar.net/avatar/Itzthebigmans2/100.png",
+            "ZXDlolz": "https://minotar.net/avatar/ZXDlolz/100.png",
+            "goatspido": "https://minotar.net/avatar/goatspido/100.png",
+            "Spectrume": "https://minotar.net/avatar/Spectrume/100.png",
+            "Bivek__": "https://minotar.net/avatar/Bivek__/100.png",
+            "omagaf": "https://minotar.net/avatar/omagaf/100.png",
+            "Not_RONIT": "https://minotar.net/avatar/Not_RONIT/100.png",
+            "notchiz": "https://minotar.net/avatar/notchiz/100.png",
+            "abidou10": "https://minotar.net/avatar/abidou10/100.png",
+            "ZZARINOWILLING12": "https://minotar.net/avatar/ZZARINOWILLING12/100.png",
+            "Toriboi12": "https://minotar.net/avatar/Toriboi12/100.png",
+            "Axrylon": "https://minotar.net/avatar/Axrylon/100.png",
+            "SatyaS3": "https://minotar.net/avatar/SatyaS3/100.png",
+            "gojo_naruto": "https://minotar.net/avatar/gojo_naruto/100.png",
+            "zangi13": "https://minotar.net/avatar/zangi13/100.png",
+            "Little_Faizan": "https://minotar.net/avatar/Little_Faizan/100.png",
+            "PrimeBroly": "https://minotar.net/avatar/PrimeBroly/100.png",
+            "dchh5773": "https://minotar.net/avatar/dchh5773/100.png",
+            "Ex1cut4r_": "https://minotar.net/avatar/Ex1cut4r_/100.png",
+            "Blackboard": "https://minotar.net/avatar/Blackboard/100.png",
+            "MoizMoreX": "https://minotar.net/avatar/MoizMoreX/100.png",
+            "kstrickly": "https://minotar.net/avatar/kstrickly/100.png",
+            "COLDWATER9999": "https://minotar.net/avatar/COLDWATER9999/100.png",
+            "nsa_warrior": "https://minotar.net/avatar/nsa_warrior/100.png",
+            "EZBOY_OP": "https://minotar.net/avatar/EZBOY_OP/100.png",
+            "_R4don": "https://minotar.net/avatar/_R4don/100.png",
+            "MeowwByAladin": "https://minotar.net/avatar/MeowwByAladin/100.png",
+            "NotOwner1515": "https://minotar.net/avatar/NotOwner1515/100.png",
+            "Savo": "https://minotar.net/avatar/Savo/100.png",
+            "MrShomi": "https://minotar.net/avatar/MrShomi/100.png",
+            "MosesCbxz": "https://minotar.net/avatar/MosesCbxz/100.png",
+            "iamstartingnew": "https://minotar.net/avatar/iamstartingnew/100.png",
+            "PROJAIGAMING223": "https://minotar.net/avatar/PROJAIGAMING223/100.png",
+            "132pogiako": "https://minotar.net/avatar/132pogiako/100.png",
+            "Bestpvper7_": "https://minotar.net/avatar/Bestpvper7_/100.png",
+            "markdevr": "https://minotar.net/avatar/markdevr/100.png",
+            "Mastreosoul": "https://minotar.net/avatar/Mastreosoul/100.png",
+            "NAVNEETH_YT_37": "https://minotar.net/avatar/NAVNEETH_YT_37/100.png",
+             "TroopaZymon": "https://minotar.net/avatar/TroopaZymon/100.png",
+             "Aayanmaster": "https://minotar.net/avatar/Aayanmaster/100.png",
+             "conexionhT3": "https://minotar.net/avatar/conexionhT3/100.png",
+             "WolfStrike_21": "https://minotar.net/avatar/WolfStrike_21/100.png",
+             "DarkKnight67_": "https://minotar.net/avatar/DarkKnight67_/100.png",
+             "weedvi": "https://minotar.net/avatar/weedvi/100.png",
+
+
+
+
+        };
 
         // DOM elements
         const homePage = document.getElementById('home-page');
         const tierlistPage = document.getElementById('tierlist-page');
+        const rankingPage = document.getElementById('ranking-page');
         const modeTitle = document.getElementById('mode-title');
         const highTierList = document.getElementById('high-tier-list');
         const midTierList = document.getElementById('mid-tier-list');
         const lowTierList = document.getElementById('low-tier-list');
         const searchBox = document.querySelector('.search-box');
-        const backBtn = document.querySelector('.back-btn');
+        const backBtn = document.querySelectorAll('.back-btn');
         const modeCards = document.querySelectorAll('.mode-card');
-        const loginBtn = document.getElementById('login-btn');
-        const registerBtn = document.getElementById('register-btn');
-        const userBtn = document.getElementById('user-btn');
-        const userPanel = document.getElementById('user-panel');
-        const closePanel = document.getElementById('close-panel');
-        const loginModal = document.getElementById('login-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const authForm = document.getElementById('auth-form');
-        const logoutBtn = document.getElementById('logout-btn');
-        const modalTitle = document.getElementById('modal-title');
-        const authSubmit = document.getElementById('auth-submit');
-        const modalSwitchLink = document.getElementById('modal-switch-link');
-        const modalSwitchText = document.getElementById('modal-switch-text');
-        const confirmPasswordGroup = document.getElementById('confirm-password-group');
-
-        // Profile elements
-        const profileUsername = document.getElementById('profile-username');
-        const profileLevel = document.getElementById('profile-level');
-        const profilePoints = document.getElementById('profile-points');
-        const profileTier = document.getElementById('profile-tier');
-        const profileProgress = document.getElementById('profile-progress');
-        const progressFill = document.getElementById('progress-fill');
-
-        // Modal state (login or register)
-        let isLoginMode = true;
+        const fullRankingList = document.getElementById('full-ranking-list');
+        const copyIpBtn = document.getElementById('copy-ip-btn');
+        const infoButton = document.getElementById('info-button');
+        const infoModal = document.getElementById('info-modal');
+        const closeInfo = document.getElementById('close-info');
+        const rankingsBtn = document.getElementById('rankings-btn');
+        const playerModal = document.getElementById('player-modal');
+        const closePlayerModal = document.getElementById('close-player-modal');
+        const playerModalTitle = document.getElementById('player-modal-title');
+        const playerModalBody = document.getElementById('player-modal-body');
+        const rankingSearchBox = document.querySelector('#ranking-page .search-box');
 
         // Current mode
         let currentMode = null;
@@ -1053,27 +1562,71 @@
             setupEventListeners();
         });
 
-    // Setup event listeners
-    function setupEventListeners() {
-        // Mode cards
-        modeCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const mode = card.getAttribute('data-mode');
-                showTierlist(mode);
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mode cards
+            modeCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const mode = card.getAttribute('data-mode');
+                    showTierlist(mode);
+                });
             });
-        });
 
-        backBtn.addEventListener('click', showHomePage);
+            // Back buttons (both tierlist and ranking page)
+            backBtn.forEach(btn => {
+                btn.addEventListener('click', showHomePageFromSubpage);
+            });
 
-        searchBox.addEventListener('input', (e) => {
-            filterPlayers(e.target.value);
-        });
-    }
+            searchBox.addEventListener('input', (e) => {
+                filterPlayers(e.target.value);
+            });
 
-    // Show tierlist
+            // Ranking page search
+            if (rankingSearchBox) {
+                rankingSearchBox.addEventListener('input', (e) => {
+                    filterRankings(e.target.value);
+                });
+            }
+
+            // Copy IP button
+            copyIpBtn.addEventListener('click', copyServerIP);
+
+            // Info button and modal
+            infoButton.addEventListener('click', showInfoModal);
+            closeInfo.addEventListener('click', hideInfoModal);
+            
+            // Close modal when clicking outside
+            infoModal.addEventListener('click', function(e) {
+                if (e.target === infoModal) {
+                    hideInfoModal();
+                }
+            });
+
+            // Rankings button
+            rankingsBtn.addEventListener('click', () => {
+                showRankingPage();
+            });
+
+            // Player detail modal close
+            closePlayerModal.addEventListener('click', hidePlayerModal);
+            playerModal.addEventListener('click', function(e) {
+                if (e.target === playerModal) hidePlayerModal();
+            });
+        }
+
+        function showHomePageFromSubpage() {
+            rankingPage.style.display = 'none';
+            tierlistPage.style.display = 'none';
+            homePage.style.display = 'block';
+            searchBox.value = '';
+            if (rankingSearchBox) rankingSearchBox.value = '';
+        }
+
+        // Show tierlist
         function showTierlist(mode) {
             currentMode = mode;
             homePage.style.display = 'none';
+            rankingPage.style.display = 'none';
             tierlistPage.style.display = 'block';
             
             // Update mode title
@@ -1083,10 +1636,19 @@
             loadPlayers(mode);
         }
 
+        function showRankingPage() {
+            homePage.style.display = 'none';
+            tierlistPage.style.display = 'none';
+            rankingPage.style.display = 'block';
+            calculateOverallRankings(); // update before showing
+        }
+
         function showHomePage() {
             homePage.style.display = 'block';
             tierlistPage.style.display = 'none';
+            rankingPage.style.display = 'none';
             searchBox.value = '';
+            if (rankingSearchBox) rankingSearchBox.value = '';
         }
 
         function loadPlayers(mode) {
@@ -1099,15 +1661,21 @@
             
             // Add players to their respective tiers
             data.high.forEach(player => {
-                highTierList.appendChild(createPlayerCard(player));
+                if (player.name) {
+                    highTierList.appendChild(createPlayerCard(player));
+                }
             });
             
             data.mid.forEach(player => {
-                midTierList.appendChild(createPlayerCard(player));
+                if (player.name) {
+                    midTierList.appendChild(createPlayerCard(player));
+                }
             });
             
             data.low.forEach(player => {
-                lowTierList.appendChild(createPlayerCard(player));
+                if (player.name) {
+                    lowTierList.appendChild(createPlayerCard(player));
+                }
             });
         }
 
@@ -1115,11 +1683,21 @@
             const card = document.createElement('div');
             card.className = 'player-card';
             card.setAttribute('data-name', player.name.toLowerCase());
-            
+
+            // Get player skin URL from our custom list
+            const skinUrl = playerSkins[player.name] || "https://minotar.net/avatar/Steve/100.png";
+
             card.innerHTML = `
-                <div class="player-avatar">${player.initials}</div>
+                <div class="player-avatar">
+                    <img src="${skinUrl}" alt="${player.name}" class="minecraft-head">
+                </div>
                 <div class="player-info">
-                    <h3 class="player-name">${player.name}</h3>
+                    <h3 class="player-name" data-player="${player.name}">
+                        ${player.name}
+                        <span class="badge ${getAchievementBadgeClass(calculatePlayerPoints(player.name))}">
+                            ${getAchievement(calculatePlayerPoints(player.name))}
+                        </span>
+                    </h3>
                     <div class="player-details">
                         <div class="player-detail">${player.region}</div>
                         <div class="player-detail">${player.tier}</div>
@@ -1127,6 +1705,12 @@
                     </div>
                 </div>
             `;
+
+            // Click on player name opens details modal
+            const nameEl = card.querySelector('.player-name');
+            nameEl.addEventListener('click', () => {
+                showPlayerDetails(player.name);
+            });
             
             return card;
         }
@@ -1145,75 +1729,256 @@
             });
         }
 
+        function filterRankings(searchTerm) {
+            const rankings = document.querySelectorAll('#full-ranking-list .ranking-item');
+            const term = searchTerm.toLowerCase();
+            
+            rankings.forEach(ranking => {
+                const playerName = ranking.querySelector('.ranking-name').textContent.toLowerCase();
+                if (playerName.includes(term)) {
+                    ranking.style.display = 'flex';
+                } else {
+                    ranking.style.display = 'none';
+                }
+            });
+        }
+
         function getCurrentDate() {
             const now = new Date();
             return `${now.getMonth()+1}/${now.getDate()}/${now.getFullYear()}`;
         }
 
-        // Update user stats in the panel
-        function updateUserStats() {
-            if (!currentUser) return;
+        // NEW: Calculate overall rankings
+        function calculateOverallRankings() {
+            const playerPoints = {};
             
-            profileUsername.textContent = currentUser.username;
-            profileLevel.textContent = currentUser.level;
-            profilePoints.textContent = currentUser.points;
-            profileTier.textContent = currentUser.currentTier;
+            // Calculate points for each player across all modes
+            Object.keys(modesData).forEach(mode => {
+                const modeData = modesData[mode];
+                
+                // Check high tier players
+                modeData.high.forEach(player => {
+                    if (player.name && player.tier) {
+                        if (!playerPoints[player.name]) {
+                            playerPoints[player.name] = 0;
+                        }
+                        playerPoints[player.name] += tierPoints[player.tier] || 0;
+                    }
+                });
+                
+                // Check mid tier players
+                modeData.mid.forEach(player => {
+                    if (player.name && player.tier) {
+                        if (!playerPoints[player.name]) {
+                            playerPoints[player.name] = 0;
+                        }
+                        playerPoints[player.name] += tierPoints[player.tier] || 0;
+                    }
+                });
+                
+                // Check low tier players
+                modeData.low.forEach(player => {
+                    if (player.name && player.tier) {
+                        if (!playerPoints[player.name]) {
+                            playerPoints[player.name] = 0;
+                        }
+                        playerPoints[player.name] += tierPoints[player.tier] || 0;
+                    }
+                });
+            });
             
-            // Calculate progress to next tier
-            const currentPoints = currentUser.points;
-            const nextTierPoints = getNextTierPoints(currentUser.currentTier);
-            const currentTierPoints = tierPoints[currentUser.currentTier] || 0;
+            // Convert to array and sort by points
+            const sortedPlayers = Object.keys(playerPoints)
+                .map(name => ({ name, points: playerPoints[name] }))
+                .sort((a, b) => b.points - a.points);
             
-            if (nextTierPoints) {
-                const progress = ((currentPoints - currentTierPoints) / (nextTierPoints - currentTierPoints)) * 100;
-                profileProgress.textContent = `${Math.min(100, Math.max(0, Math.round(progress)))}%`;
-                progressFill.style.width = `${Math.min(100, Math.max(0, progress))}%`;
-            } else {
-                profileProgress.textContent = "100%";
-                progressFill.style.width = "100%";
-            }
-            
-            // Update mode tiers
-            document.getElementById('mode-sword').textContent = currentUser.modes.sword || "-";
-            document.getElementById('mode-uhc').textContent = currentUser.modes.uhc || "-";
-            document.getElementById('mode-smp').textContent = currentUser.modes.smp || "-";
-            document.getElementById('mode-crystal').textContent = currentUser.modes.crystal || "-";
-            document.getElementById('mode-axe').textContent = currentUser.modes.axe || "-";
-            document.getElementById('mode-diapot').textContent = currentUser.modes.diapot || "-";
-            document.getElementById('mode-nethpot').textContent = currentUser.modes.nethpot || "-";
-            document.getElementById('mode-mace').textContent = currentUser.modes.mace || "-";
+            // Display the rankings
+            displayOverallRankings(sortedPlayers);
         }
 
-        // Get points for next tier
-        function getNextTierPoints(currentTier) {
-            const tiers = Object.keys(tierPoints);
-            const currentIndex = tiers.indexOf(currentTier);
+        // NEW: Display overall rankings
+        function displayOverallRankings(players) {
+            if (fullRankingList) fullRankingList.innerHTML = '';
             
-            if (currentIndex < tiers.length - 1) {
-                return tierPoints[tiers[currentIndex + 1]];
-            }
-            
-            return 1000; // Max points for Carnix Legend
-        }
-
-        // Calculate level based on points
-        function calculateLevel(points) {
-            return Math.min(50, Math.floor(points / 20) + 1);
-        }
-
-        // Calculate tier based on points
-        function calculateTier(points) {
-            const tiers = Object.keys(tierPoints);
-            
-            for (let i = tiers.length - 1; i >= 0; i--) {
-                if (points >= tierPoints[tiers[i]]) {
-                    return tiers[i];
+            players.forEach((player, index) => {
+                const rankingItem = document.createElement('div');
+                rankingItem.className = 'ranking-item';
+                
+                // Add special effects for top 3 players
+                if (index === 0) {
+                    rankingItem.classList.add('gold');
+                } else if (index === 1) {
+                    rankingItem.classList.add('silver');
+                } else if (index === 2) {
+                    rankingItem.classList.add('bronze');
                 }
-            }
-            
-            return "LT5";
-        
+                
+                // Get player skin URL
+                const skinUrl = playerSkins[player.name] || "https://minotar.net/body/Steve/100.png";
+
+                rankingItem.innerHTML = `
+                    <div class="ranking-position">${index + 1}</div>
+                    <div class="ranking-player">
+                        <img src="${skinUrl}" alt="${player.name}" class="player-skin-thumb">
+                        <span class="ranking-name" data-player="${player.name}" style="cursor:pointer">${player.name}</span>
+                        <span class="badge ${getAchievementBadgeClass(player.points)}">
+                            ${getAchievement(player.points)}
+                        </span>
+                    </div>
+                    <div class="ranking-points">${player.points} pts</div>
+                `;
+
+                // attach click to name to open detail modal
+                rankingItem.querySelector('.ranking-name').addEventListener('click', () => {
+                    showPlayerDetails(player.name);
+                });
+
+                // append to full rankings container
+                if (fullRankingList) fullRankingList.appendChild(rankingItem);
+            });
         }
+
+        // NEW: Calculate points for a specific player
+        function calculatePlayerPoints(playerName) {
+            let totalPoints = 0;
+            
+            Object.keys(modesData).forEach(mode => {
+                const modeData = modesData[mode];
+                
+                // Check high tier
+                const highPlayer = modeData.high.find(p => p.name === playerName);
+                if (highPlayer && highPlayer.tier) {
+                    totalPoints += tierPoints[highPlayer.tier] || 0;
+                }
+                
+                // Check mid tier
+                const midPlayer = modeData.mid.find(p => p.name === playerName);
+                if (midPlayer && midPlayer.tier) {
+                    totalPoints += tierPoints[midPlayer.tier] || 0;
+                }
+                
+                // Check low tier
+                const lowPlayer = modeData.low.find(p => p.name === playerName);
+                if (lowPlayer && lowPlayer.tier) {
+                    totalPoints += tierPoints[lowPlayer.tier] || 0;
+                }
+            });
+            
+            return totalPoints;
+        }
+
+        // NEW: Get achievement based on points
+        function getAchievement(points) {
+            if (points >= achievementRequirements["Combat Grandmaster"]) return "Combat Grandmaster";
+            if (points >= achievementRequirements["Combat Master"]) return "Combat Master";
+            if (points >= achievementRequirements["Combat Ace"]) return "Combat Ace";
+            if (points >= achievementRequirements["Combat Specialist"]) return "Combat Specialist";
+            if (points >= achievementRequirements["Combat Cadet"]) return "Combat Cadet";
+            if (points >= achievementRequirements["Combat Novice"]) return "Combat Novice";
+            return "Rookie";
+        }
+
+        // NEW: Get badge class based on achievement
+        function getAchievementBadgeClass(points) {
+            const achievement = getAchievement(points);
+            switch(achievement) {
+                case "Combat Grandmaster": return "badge-grandmaster";
+                case "Combat Master": return "badge-master";
+                case "Combat Ace": return "badge-ace";
+                case "Combat Specialist": return "badge-specialist";
+                case "Combat Cadet": return "badge-cadet";
+                case "Combat Novice": return "badge-novice";
+                default: return "badge-rookie";
+            }
+        }
+
+        // NEW: Copy server IP to clipboard
+        function copyServerIP() {
+            const ip = document.getElementById('header-server-ip').textContent || "carnixpvp.cylone.net:19109";
+            navigator.clipboard.writeText(ip).then(() => {
+                // Show feedback
+                const originalHTML = copyIpBtn.innerHTML;
+                copyIpBtn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    copyIpBtn.innerHTML = originalHTML;
+                }, 2000);
+            });
+        }
+
+        // NEW: Show info modal
+        function showInfoModal() {
+            infoModal.classList.add('active');
+        }
+
+        // NEW: Hide info modal
+        function hideInfoModal() {
+            infoModal.classList.remove('active');
+        }
+
+        // NEW: Show player details modal (which modes and tiers the player has)
+        function showPlayerDetails(playerName) {
+            playerModalTitle.textContent = playerName;
+            playerModalBody.innerHTML = '';
+
+            // Skin render for modal (larger)
+            const skinUrl = playerSkins[playerName] || "https://minotar.net/avatar/Steve/100.png";
+
+            const skinHtml = document.createElement('div');
+            skinHtml.className = 'player-skin';
+            skinHtml.innerHTML = `<div class="player-skin" style="display:flex;flex-direction:column;align-items:center;">
+                <div class="player-skin" style="margin-bottom:2px">
+                    <img src="${skinUrl}" alt="${playerName}" style="width:60px;height:60px;object-fit:cover;border-radius:2px;image-rendering:pixelated;">
+                </div>
+                <div style="font-weight:700;margin-bottom:2px;">${playerName}</div>
+            </div>`;
+            playerModalBody.appendChild(skinHtml);
+
+            const list = document.createElement('div');
+            list.style.display = 'flex';
+            list.style.flexDirection = 'column';
+            list.style.gap = '2px';
+
+            let foundAny = false;
+            Object.keys(modesData).forEach(modeKey => {
+                const md = modesData[modeKey];
+                const foundHigh = md.high.find(p => p.name === playerName);
+                const foundMid = md.mid.find(p => p.name === playerName);
+                const foundLow = md.low.find(p => p.name === playerName);
+                if (foundHigh || foundMid || foundLow) {
+                    foundAny = true;
+                    const row = document.createElement('div');
+                    row.style.display = 'flex';
+                    row.style.justifyContent = 'space-between';
+                    row.style.padding = '2px';
+                    row.style.background = 'rgba(255,255,255,0.03)';
+                    row.style.borderRadius = '2px';
+                    row.innerHTML = `<div style="font-weight:600;">${md.name}</div><div>${(foundHigh && foundHigh.tier) || (foundMid && foundMid.tier) || (foundLow && foundLow.tier)}</div>`;
+                    list.appendChild(row);
+                }
+            });
+
+            if (!foundAny) {
+                list.innerHTML = '<div style="color:#bdc3c7;">No mode data found for this player.</div>';
+            }
+
+            playerModalBody.appendChild(list);
+
+            // Show total points & achievement
+            const totalPoints = calculatePlayerPoints(playerName);
+            const pointsDiv = document.createElement('div');
+            pointsDiv.style.marginTop = '2px';
+            pointsDiv.innerHTML = `<div style="font-weight:700;">Total Points: ${totalPoints}</div>
+                                   <div style="margin-top:6px;">Achievement: <span class="badge ${getAchievementBadgeClass(totalPoints)}">${getAchievement(totalPoints)}</span></div>`;
+            playerModalBody.appendChild(pointsDiv);
+
+            playerModal.classList.add('active');
+        }
+
+        function hidePlayerModal() {
+            playerModal.classList.remove('active');
+        }
+
+
 
 
     </script>
